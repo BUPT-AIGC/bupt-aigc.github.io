@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>LIVIN 光场计算与视觉智能实验室</title>
     <link rel="icon" href="1.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -10,39 +10,127 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
+            -webkit-text-size-adjust: 100%;
+            touch-action: manipulation;
         }
+
+        @media (max-width: 768px) {
+            .nav-link {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.875rem;
+            }
+
+            .text-6xl {
+                font-size: 2.5rem;
+            }
+
+            .text-3xl {
+                font-size: 1.75rem;
+            }
+
+            .text-2xl {
+                font-size: 1.5rem;
+            }
+
+            .text-xl {
+                font-size: 1.25rem;
+            }
+
+            .p-8 {
+                padding: 1.5rem;
+            }
+
+            .space-x-4 {
+                gap: 0.5rem;
+            }
+        }
+
         .animate-fade-in {
             animation: fadeIn 1s ease-in-out;
         }
+
         .animate-slide-in {
             animation: slideIn 1s ease-in-out;
         }
+
         .animate-bounce {
             animation: bounce 2s infinite;
         }
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
+
         @keyframes slideIn {
             from { transform: translateY(50px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
+
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
+
         .hover-scale {
             transition: transform 0.3s ease-in-out;
         }
+
         .hover-scale:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
+
         .parallax {
-            background-attachment: fixed;
+            background-attachment: scroll;
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
+        }
+
+        /* Mobile Navigation */
+        @media (max-width: 768px) {
+            .nav-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+
+            .nav-container::-webkit-scrollbar {
+                display: none;
+            }
+
+            .nav-links {
+                display: flex;
+                white-space: nowrap;
+                padding: 0.5rem;
+            }
+        }
+
+        /* Improved touch targets */
+        @media (max-width: 768px) {
+            .clickable {
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+            button,
+            [role="button"],
+            a {
+                padding: 0.5rem 0.75rem;
+            }
+        }
+
+        /* Responsive images and videos */
+        img,
+        video {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
         }
     </style>
 </head>
