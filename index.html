@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIVIN 光场计算与视觉智能实验室</title>
+    <link rel="icon" href="1.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .animate-fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+        .animate-slide-in {
+            animation: slideIn 1s ease-in-out;
+        }
+        .animate-bounce {
+            animation: bounce 2s infinite;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .hover-scale {
+            transition: transform 0.3s ease-in-out;
+        }
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200">
+<nav class="bg-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex items-center">
+                <img src="./logo.svg" alt="Logo" class="h-8 w-8 text-yellow-400 mr-2 animate-bounce" />
+                <span class="text-2xl font-bold text-gray-900">LIVIN</span>
+            </div>
+            <div class="flex space-x-4">
+                <a href="#home" class="nav-link flex items-center px-3 py-2 rounded-md text-sm font-medium bg-yellow-400 text-gray-900">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1.5 h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    首页
+                </a>
+                <a href="#team" class="nav-link flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-yellow-100 hover:text-gray-900">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1.5 h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    团队
+                </a>
+                <a href="#achievements" class="nav-link flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-yellow-100 hover:text-gray-900">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1.5 h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="8" r="7"></circle>
+                        <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                    </svg>
+                    成果
+                </a>
+                <a href="#admissions" class="nav-link flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-yellow-100 hover:text-gray-900">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1.5 h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                        <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                    </svg>
+                    招生
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <section id="home" class="bg-white shadow-lg rounded-lg p-8 mb-8 animate-fade-in">
+        <div class="flex flex-col items-center justify-center space-y-4 mb-12">
+            <!-- Logo and Title -->
+            <div class="flex items-center justify-center group">
+                <img src="./logo.svg" alt="LIVIN Lab Logo" class="h-14 w-14 text-yellow-400 mr-3 animate-bounce filter drop-shadow-md" />
+                <h1 class="text-6xl font-bold text-gray-800 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-gray-800 to-gray-600">
+                    LIVIN
+                </h1>
+            </div>
+
+            <!-- Lab Name and Institution -->
+            <div class="text-center space-y-2">
+                <h2 class="text-3xl font-bold text-gray-800 tracking-tight">
+                    光场计算与视觉智能实验室
+                </h2>
+                <p class="text-sm font-medium text-gray-500 tracking-wider uppercase">
+                    @ 北京邮电大学
+                </p>
+            </div>
+        </div>
+
+
+        <section class="mb-12 animate-slide-in bg-white rounded-lg shadow-sm p-8">
+            <h3 class="text-3xl font-bold mb-6 text-gray-800 border-b pb-4">
+                实验室简介
+                <span class="text-base font-normal text-gray-500 ml-2">Introduction</span>
+            </h3>
+
+            <!-- Main Introduction -->
+            <div class="space-y-6">
+                <p class="text-lg leading-relaxed text-gray-700 mb-6">
+                    <span class="text-xl font-semibold text-gray-900 block mb-2">北京邮电大学光场计算与视觉智能（Light Field Computing and Visual Intelligence, LIVIN）实验室</span>
+                    专注于前沿的光场计算与视觉智能研究。由熊永平教授领导，团队成员包括5名博士和10名硕士，致力于将3D AIGC技术与光场显示相结合，推动三维视觉、文档识别及多模态大模型的发展。近年来，实验室在顶级会议和期刊上发表了多篇高影响力论文，力求将技术成果转化为实际应用，服务于智能教育、电子信息制造等多个领域。
+                </p>
+
+                <!-- Research Achievements -->
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <p class="text-lg leading-relaxed text-gray-700">
+                        近年来专注于视觉智能领域，在
+                        <span class="font-medium text-gray-900">文档识别、三维重建、多模态大模型、光场AIGC</span>
+                        等领域取得了一系列代表性成果，先后在
+                        <span class="font-medium text-gray-900">SIGGRAPH ASIA、ACM TOG、ACM MM、ACL、Pattern Recognition、NAACL、IEEE TMC</span>
+                        等顶级会议和期刊上发表论文，申请和授权了20余项专利。
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section class="mb-12 animate-slide-in bg-white rounded-lg p-8 shadow-sm" style="animation-delay: 0.3s;">
+            <h3 class="text-3xl font-bold mb-6 text-gray-800 border-b pb-4">
+                最新动态
+                <span class="text-base font-normal text-gray-500 ml-2">Latest News</span>
+            </h3>
+            <!-- Team Activity -->
+            <div class="group hover:bg-gray-50 p-4 rounded-lg transition-all duration-300 transform hover:-translate-y-1">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                    <span class="inline-flex items-center justify-center h-10 w-10 rounded-lg bg-pink-100 text-pink-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                    </span>
+                    </div>
+                    <div class="ml-4">
+                        <time class="text-sm font-medium text-gray-500">2024-12-02</time>
+                        <h4 class="mt-1 text-lg font-semibold text-gray-900">
+                            团队全体成员前往日本东京参加SIGGRAPH ASIA'24并组织团建活动
+                            <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-pink-100 text-pink-800">
+                            团队活动
+                        </span>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="group hover:bg-gray-50 p-4 rounded-lg transition-all duration-300 transform hover:-translate-y-1">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+            <span class="inline-flex items-center justify-center h-10 w-10 rounded-lg bg-yellow-100 text-yellow-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+            </span>
+                    </div>
+                    <div class="ml-4">
+                        <time class="text-sm font-medium text-gray-500">2024-12-02</time>
+                        <h4 class="mt-1 text-lg font-semibold text-gray-900">
+                            <a href="https://mp.weixin.qq.com/s/2RrOChK_FKYPfert9UnL9w"
+                               class="hover:text-blue-600 transition-colors">
+                                OpenHarmony全国高效竞赛训练营获得全国冠军及最佳指导教师 (<strong> 1 </strong>/84)
+                            </a>
+                            <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                    竞赛
+                </span>
+                        </h4>
+                    </div>
+                </div>
+                <div class="mt-4 flex justify-center">
+                    <img src="./openharm.jpg" alt="颁奖图片" class="w-4/5 rounded-lg" />
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <!-- News Item 1 -->
+                <div class="group hover:bg-gray-50 p-4 rounded-lg transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                    <span class="inline-flex items-center justify-center h-10 w-10 rounded-lg bg-green-100 text-green-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </span>
+                        </div>
+                        <div class="ml-4">
+                            <time class="text-sm font-medium text-gray-500">2024-08-20</time>
+                            <h4 class="mt-1 text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+                                DirectL被SIGGRAPH ASIA'24 & ACM TOG接收
+                                <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                            CCF-A
+                        </span>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            <div class="space-y-6">
+                <!-- Academic Achievement 1 -->
+                <div class="group hover:bg-gray-50 p-4 rounded-lg transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                    <span class="inline-flex items-center justify-center h-10 w-10 rounded-lg bg-green-100 text-green-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </span>
+                        </div>
+                        <div class="ml-4">
+                            <time class="text-sm font-medium text-gray-500">2024-06-15</time>
+                            <h4 class="mt-1 text-lg font-semibold text-gray-900">
+                                VISTA被ACL'24接收
+                                <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                            CCF-A
+                        </span>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Academic Achievement 2 -->
+                <div class="group hover:bg-gray-50 p-4 rounded-lg transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                    <span class="inline-flex items-center justify-center h-10 w-10 rounded-lg bg-green-100 text-green-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </span>
+                        </div>
+                        <div class="ml-4">
+                            <time class="text-sm font-medium text-gray-500">2024-06-10</time>
+                            <h4 class="mt-1 text-lg font-semibold text-gray-900">
+                                LayoutPointer被NAACL'24接收
+                                <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                            CCF-B
+                        </span>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+                <!-- News Item 2 -->
+                <div class="group hover:bg-gray-50 p-4 rounded-lg transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                    <span class="inline-flex items-center justify-center h-10 w-10 rounded-lg bg-blue-100 text-blue-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                        </svg>
+                    </span>
+                        </div>
+                        <div class="ml-4">
+                            <time class="text-sm font-medium text-gray-500">2024-06-21</time>
+                            <h4 class="mt-1 text-lg font-semibold text-gray-900">
+                                <a href="https://mp.weixin.qq.com/s/-HUORRvhGVDdfPcKReXsCg"
+                                   class="hover:text-blue-600 transition-colors">
+                                    量子位报道视频理解成果
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Item 3 -->
+                <div class="group hover:bg-gray-50 p-4 rounded-lg transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                    <span class="inline-flex items-center justify-center h-10 w-10 rounded-lg bg-blue-100 text-blue-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                        </svg>
+                    </span>
+                        </div>
+                        <div class="ml-4">
+                            <time class="text-sm font-medium text-gray-500">2023-11-09</time>
+                            <h4 class="mt-1 text-lg font-semibold text-gray-900">
+                                <a href="https://mp.weixin.qq.com/s/5PxmeM4Sg4Wlt1kdazXA3g"
+                                   class="hover:text-blue-600 transition-colors">
+                                    CSIG文档图像分析与识别专委会报道DocDiff
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <!-- Academic Achievement 3 -->
+                <div class="group hover:bg-gray-50 p-4 rounded-lg transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                    <span class="inline-flex items-center justify-center h-10 w-10 rounded-lg bg-green-100 text-green-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </span>
+                        </div>
+                        <div class="ml-4">
+                            <time class="text-sm font-medium text-gray-500">2023-08-01</time>
+                            <h4 class="mt-1 text-lg font-semibold text-gray-900">
+                                DocDiff被ACM MM'23接收
+                                <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                            CCF-A
+                        </span>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Industrial Applications -->
+
+        </section>
+    </section>
+
+    <section id="team" class="bg-white shadow-lg rounded-lg p-8 mb-8 animate-fade-in">
+        <h2 class="text-3xl font-bold mb-6 text-gray-800">我们的团队</h2>
+
+        <section class="mb-12 animate-slide-in">
+            <div class="flex items-center mb-8">
+                <h3 class="text-3xl font-bold text-gray-800">教师</h3>
+                <div class="ml-4 h-px flex-grow bg-gradient-to-r from-gray-200 to-transparent"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <a href="https://teacher.bupt.edu.cn/xiongyongping" target="_blank" class="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden">
+                    <div class="relative">
+                        <img src="./xyp.jpg" alt="熊永平教授照片" class="w-full h-100 object-cover transform group-hover:scale-105 transition-transform duration-300">
+                    </div>
+
+                    <div class="p-6 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4 class="text-2xl font-bold text-gray-800 mb-1">熊永平</h4>
+                                <p class="text-lg font-medium text-gray-600">教授，博士生导师</p>
+                            </div>
+                            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-yellow-50 text-yellow-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                    </svg>
+                </span>
+                        </div>
+
+                        <div class="space-y-3">
+                            <div class="flex items-center text-gray-700">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                                <span class="font-medium">北京邮电大学计算机学院特聘教授</span>
+                            </div>
+
+                            <div class="flex items-center text-gray-700">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                </svg>
+                                <span class="font-medium">北邮-井冈山实验室常务副主任</span>
+                            </div>
+
+                            <div class="flex items-center text-gray-700">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                </svg>
+                                <span class="font-medium">LIVIN实验室负责人</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        </section>
+
+        <section class="mb-8 animate-slide-in" style="animation-delay: 0.3s;">
+            <h3 class="text-2xl font-semibold mb-4 text-gray-700">博士生</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-6 hover-scale">
+                    <div class="p-4">
+                        <h4 class="text-xl font-semibold text-gray-800">周俊杰</h4>
+                        <p class="text-gray-600">博士生</p>
+                        <p class="text-gray-700 mt-2">研究方向：多模态融合与理解。</p>
+                    </div>
+                </div>
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-6 hover-scale">
+                    <div class="p-4">
+                        <h4 class="text-xl font-semibold text-gray-800">尚宇</h4>
+                        <p class="text-gray-600">博士生</p>
+                        <p class="text-gray-700 mt-2">研究方向：实时光场重建与重建。</p>
+                    </div>
+                </div>
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-6 hover-scale">
+                    <a href="https://royalvice.github.io/" target="_blank" class="bg-white shadow-lg rounded-lg overflow-hidden mb-6 hover-scale">
+                        <div class="p-4">
+                            <h4 class="text-xl font-semibold text-gray-800">杨宗元</h4>
+                            <p class="text-gray-600">博士生</p>
+                            <p class="text-gray-700 mt-2">研究方向：三维内容生成与渲染。</p>
+                        </div>
+                    </a>
+
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-6 hover-scale">
+                    <div class="p-4">
+                        <h4 class="text-xl font-semibold text-gray-800">刘宝林</h4>
+                        <p class="text-gray-600">博士生</p>
+                        <p class="text-gray-700 mt-2">研究方向：光场内容编辑与优化。</p>
+                    </div>
+                </div>
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-6 hover-scale">
+                    <div class="p-4">
+                        <h4 class="text-xl font-semibold text-gray-800">李嵩</h4>
+                        <p class="text-gray-600">博士生</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="animate-slide-in" style="animation-delay: 0.6s;">
+            <h3 class="text-2xl font-semibold mb-4 text-gray-700">硕士生</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-6 hover-scale">
+                    <div class="p-4">
+                        <h4 class="text-xl font-semibold text-gray-800">刘子琦</h4>
+                        <p class="text-gray-600">硕士生</p>
+                    </div>
+                </div>
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-6 hover-scale">
+                    <div class="p-4">
+                        <h4 class="text-xl font-semibold text-gray-800">招展慧</h4>
+                        <p class="text-gray-600">硕士生</p>
+                    </div>
+                </div>
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-6 hover-scale">
+                    <div class="p-4">
+                        <h4 class="text-xl font-semibold text-gray-800">李佳庆</h4>
+                        <p class="text-gray-600">硕士生</p>
+                    </div>
+                </div>
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-6 hover-scale">
+                    <div class="p-4">
+                        <h4 class="text-xl font-semibold text-gray-800">李昊洋</h4>
+                        <p class="text-gray-600">硕士生</p>
+                    </div>
+                </div>
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-6 hover-scale">
+                    <div class="p-4">
+                        <h4 class="text-xl font-semibold text-gray-800">李嘉铭</h4>
+                        <p class="text-gray-600">硕士生</p>
+                    </div>
+                </div>
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-6 hover-scale">
+                    <div class="p-4">
+                        <h4 class="text-xl font-semibold text-gray-800">曹嘉伦</h4>
+                        <p class="text-gray-600">硕士生</p>
+                    </div>
+                </div>
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-6 hover-scale">
+                    <div class="p-4">
+                        <h4 class="text-xl font-semibold text-gray-800">刘文</h4>
+                        <p class="text-gray-600">硕士生</p>
+                    </div>
+                </div>
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-6 hover-scale">
+                    <div class="p-4">
+                        <h4 class="text-xl font-semibold text-gray-800">宋映德</h4>
+                        <p class="text-gray-600">硕士生</p>
+                    </div>
+                </div>
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-6 hover-scale">
+                    <div class="p-4">
+                        <h4 class="text-xl font-semibold text-gray-800">陈赛</h4>
+                        <p class="text-gray-600">硕士生</p>
+                    </div>
+                </div>
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-6 hover-scale">
+                    <div class="p-4">
+                        <h4 class="text-xl font-semibold text-gray-800">程家伟</h4>
+                        <p class="text-gray-600">硕士生</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </section>
+
+    <section id="achievements" class="bg-white shadow-lg rounded-lg p-8 mb-8 animate-fade-in">
+        <h2 class="text-3xl font-bold mb-6 text-gray-800">成果</h2>
+
+        <div class="flex items-start mb-6 p-4 bg-white shadow-lg rounded-lg hover-scale animate-slide-in">
+            <video controls class="w-40 h-40 object-cover rounded-lg mr-4 cursor-pointer" onclick="openFullscreen(this)">
+                <source src="./qxss.mp4" type="video/mp4">
+                您的浏览器不支持视频播放。
+            </video>
+            <div>
+                <h4 class="text-lg font-semibold text-gray-800">神经外科全息手术导航</h4>
+                <p class="text-gray-600">
+                    <a class="text-blue-500 hover:underline">杨宗元</a>,
+                    <a class="text-blue-500 hover:underline">曹嘉伦</a>,
+                    <a class="text-blue-500 hover:underline">李嘉铭</a>,
+                    <a class="text-blue-500 hover:underline">龚剑桥</a>,
+                    <a class="text-blue-500 hover:underline">宋映德</a>
+                </p>
+                <p class="text-gray-700">该项目能够在手术中以裸眼3D形式显示患者脑部的结构，帮助医生精确定位，从而显著提升神经外科手术的精确性和安全性。</p>
+                <p class="text-gray-500">发布时间：2024-10-20</p>
+                <span class="inline-block px-2 py-1 text-sm rounded bg-blue-100 text-blue-800">项目</span>
+
+                <h4 class="text-lg font-semibold text-gray-800 mt-6">OpenHarmony高校竞赛训练营全国冠军</h4>
+                <p class="text-gray-700">该项目在2024年度OpenHarmony竞赛训练营中荣获冠军。</p>
+                <p class="text-gray-500">获奖日期：2024-10-17</p>
+                <span class="inline-block px-2 py-1 text-sm rounded bg-green-100 text-green-800">竞赛</span>
+            </div>
+        </div>
+        <section class="mb-8 animate-slide-in bg-white rounded-lg p-6" style="animation-delay: 0.6s;">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-2xl font-bold text-gray-800">代表工作</h3>
+                <a href="https://www.aibupt.com" class="inline-flex items-center">
+                    <img src="https://img.shields.io/badge/Project-Website-orange" alt="Project Website" class="h-5" />
+                </a>
+            </div>
+
+            <!-- CCF-A Papers -->
+            <div class="space-y-3">
+                <!-- DirectL -->
+
+                <div class="p-3 hover:bg-gray-50 rounded-lg transition-all duration-200">
+                    <h4 class="text-lg font-semibold text-gray-800">DirectL: Efficient Radiance Fields Rendering for 3D Light Field Displays</h4>
+                    <p class="text-sm text-gray-600 mt-1">⌈SIGGRAPH ASIA'24/TOG, <strong>CCF A类会议及期刊</strong>⌋</p>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        <a href="https://arxiv.org/abs/2407.14053">
+                            <img src="https://img.shields.io/badge/cs.CV-arXiv%3A2407.14053-B31B1B.svg" alt="arXiv" />
+                        </a>
+                        <a href="https://direct-l.github.io/">
+                            <img src="https://img.shields.io/badge/HomePage-DirectL-blue" alt="GitHub Code" />
+                        </a>
+                    </div>
+                </div>
+                <!-- VISTA -->
+                <div class="p-3 hover:bg-gray-50 rounded-lg transition-all duration-200">
+                    <h4 class="text-lg font-semibold text-gray-800">VISTA: Visualized Text Embedding For Universal Multi-Modal Retrieval</h4>
+                    <p class="text-sm text-gray-600 mt-1">⌈ACL'24, <strong>CCF A类会议</strong>⌋</p>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        <a href="https://arxiv.org/abs/2406.04292">
+                            <img src="https://img.shields.io/badge/cs.CV-arXiv%3A2406.04292-B31B1B.svg" alt="arXiv" />
+                        </a>
+                        <a href="https://github.com/FlagOpen/FlagEmbedding/tree/master/FlagEmbedding/visual">
+                            <img src="https://img.shields.io/badge/Github-VISTA%20Code-blue" alt="GitHub Code" />
+                        </a>
+                        <a href="https://huggingface.co/BAAI/bge-visualized">
+                            <img src="https://img.shields.io/badge/%F0%9F%A4%A8%C2%A0%20Model-VISTA%20Model-yellow" alt="Model" />
+                        </a>
+                    </div>
+                </div>
+
+                <!-- DocDiff -->
+                <div class="p-3 hover:bg-gray-50 rounded-lg transition-all duration-200">
+                    <h4 class="text-lg font-semibold text-gray-800">DocDiff: Document Enhancement via Residual Diffusion Model</h4>
+                    <p class="text-sm text-gray-600 mt-1">⌈ACM MM'23, <strong>CCF A类会议</strong>⌋</p>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        <a href="https://arxiv.org/abs/2305.038921">
+                            <img src="https://img.shields.io/badge/cs.CV-arXiv%3A2305.038921-B31B1B.svg" alt="Arxiv Page" />
+                        </a>
+                        <a href="https://github.com/Royalvice/DocDiff/stargazers">
+                            <img src="https://img.shields.io/github/stars/Royalvice/DocDiff?style=social" alt="GitHub Stars" />
+                        </a>
+                    </div>
+                </div>
+
+                <!-- CCF-B Papers -->
+                <div class="p-3 hover:bg-gray-50 rounded-lg transition-all duration-200">
+                    <h4 class="text-lg font-semibold text-gray-800">LayoutPointer: A Spatial-Context Adaptive Pointer Network for Visual Information Extraction</h4>
+                    <p class="text-sm text-gray-600 mt-1">⌈NAACL'24, <strong>CCF B类会议</strong>⌋</p>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        <a href="https://aclanthology.org/2024.naacl-long.207/">
+                            <img src="https://img.shields.io/badge/Paper-Page-red" alt="Paper Page" />
+                        </a>
+                        <a href="https://github.com/ThinkSYR/LayoutPointer">
+                            <img src="https://img.shields.io/github/stars/ThinkSYR/LayoutPointer?style=social" alt="GitHub Stars" />
+                        </a>
+                    </div>
+                </div>
+
+                <!-- GDB -->
+                <div class="p-3 hover:bg-gray-50 rounded-lg transition-all duration-200">
+                    <h4 class="text-lg font-semibold text-gray-800">GDB: Gated convolutions-based Document Binarization</h4>
+                    <p class="text-sm text-gray-600 mt-1">⌈Pattern Recognition'24, <strong>CCF B类及SCI 1区TOP期刊</strong>⌋</p>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        <a href="https://arxiv.org/abs/2302.02073">
+                            <img src="https://img.shields.io/badge/cs.CV-arXiv%3A2302.02073-B31B1B.svg" alt="Arxiv Page" />
+                        </a>
+                        <a href="https://github.com/Royalvice/GDB/stargazers">
+                            <img src="https://img.shields.io/github/stars/Royalvice/GDB?style=social" alt="GitHub Stars" />
+                        </a>
+                        <img src="https://img.shields.io/badge/IF-8.0-green" alt="Impact Factor" />
+                    </div>
+                </div>
+
+                <!-- CCF-C Papers -->
+                <div class="p-3 hover:bg-gray-50 rounded-lg transition-all duration-200">
+                    <h4 class="text-lg font-semibold text-gray-800">Document Binarization with Multi-Branch Gated Convolutional Generative Adversarial Networks</h4>
+                    <p class="text-sm text-gray-600 mt-1">⌈ICIP'23, <strong>CCF C类会议</strong>⌋</p>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        <a href="https://ieeexplore.ieee.org/abstract/document/10222024/">
+                            <img src="https://img.shields.io/badge/Paper-Page-red" alt="Paper Page" />
+                        </a>
+                    </div>
+                </div>
+
+                <!-- CarveNet -->
+                <div class="p-3 hover:bg-gray-50 rounded-lg transition-all duration-200">
+                    <h4 class="text-lg font-semibold text-gray-800">CarveNet: A Channel-Wise Attention-Based Network for Irregular Scene Text Recognition</h4>
+                    <p class="text-sm text-gray-600 mt-1">⌈IJDAR'22, <strong>CCF C类期刊</strong>⌋</p>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        <a href="https://link.springer.com/article/10.1007/s10032-022-00398-4">
+                            <img src="https://img.shields.io/badge/Paper-Page-red" alt="Paper Page" />
+                        </a>
+                    </div>
+                </div>
+
+                <!-- SCI Papers -->
+                <div class="p-3 hover:bg-gray-50 rounded-lg transition-all duration-200">
+                    <h4 class="text-lg font-semibold text-gray-800">FAT: Field-Aware Transformer for Point Cloud Segmentation With Adaptive Attention Fields</h4>
+                    <p class="text-sm text-gray-600 mt-1">⌈IEEE Transactions on Industrial Informatics, <strong>SCI 1区TOP期刊</strong>⌋</p>
+                </div>
+            </div>
+        </section>
+        <div class="mt-8">
+            <p class="text-xl font-semibold text-gray-800 mb-4">技术成果产业化进展</p>
+            <ol class="space-y-6 list-none">
+                <li class="bg-gray-50 p-6 rounded-lg hover:shadow-md transition-shadow duration-300">
+                    <span class="inline-block bg-blue-100 text-blue-800 text-sm font-semibold px-2.5 py-0.5 rounded-full mb-2">产业应用一</span>
+                    <p class="text-gray-700 leading-relaxed">
+                        我们组建了北邮-井冈山实验室，深度融合视觉智能技术与吉安千亿级电子信息制造业。我们的三维视觉和视频理解技术广泛应用于智能焊接机器人、智能喷涂机器人、组装工艺控制和器件溯源等多个领域，目前已为立讯精密、柏兆电子、方舟流体等行业龙头企业提供服务。                            </p>
+                </li>
+
+                <li class="bg-gray-50 p-6 rounded-lg hover:shadow-md transition-shadow duration-300">
+                    <span class="inline-block bg-green-100 text-green-800 text-sm font-semibold px-2.5 py-0.5 rounded-full mb-2">产业应用二</span>
+                    <p class="text-gray-700 leading-relaxed">
+                        作为教育部的专家团队，我们研发了全球领先的公式识别和文档智能解析技术，并将其与多模态大模型结合，应用于重点领域的资源共享服务平台、虚拟教研室平台及数字出版平台等国家高等教育智能化项目。这些技术成果已应用于全国七百多个虚拟教研室，覆盖近10万名高校教师。                            </p>
+                </li>
+
+                <li class="bg-gray-50 p-6 rounded-lg hover:shadow-md transition-shadow duration-300">
+                    <span class="inline-block bg-purple-100 text-purple-800 text-sm font-semibold px-2.5 py-0.5 rounded-full mb-2">产业应用三</span>
+                    <p class="text-gray-700 leading-relaxed">
+                        我们与全球最大的公用事业公司——国家电网展开合作，研发多光谱光纤传像和视觉理解技术。这些技术能够实现GIS、开关柜等封闭式高压电气设备的内部可视化，并高精度检测过热和放电等缺陷，成功应用于从超高压到配网的多个电压等级设备，广泛服务于多个省网公司。                            </p>
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <script>
+        function openFullscreen(video) {
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) { // Safari
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) { // IE11
+                video.msRequestFullscreen();
+            }
+        }
+    </script>
+
+
+
+    <section id="admissions" class="bg-white shadow-md rounded-lg p-8 animate-fade-in">
+        <h2 class="text-3xl font-bold mb-6 text-gray-800">招生信息</h2>
+        <p class="text-lg text-gray-600 mb-4 animate-slide-in">
+            LIVIN实验室诚邀对光场计算与视觉智能有热情的学生加入我们的研究团队。我们专注于三维视觉与光场显示的结合，欢迎志同道合的博士生和研究生申请。
+        </p>
+
+        <div class="mb-6 animate-slide-in" style="animation-delay: 0.3s;">
+            <h3 class="text-2xl font-semibold mb-4 text-gray-700">研究方向</h3>
+            <ul class="list-disc list-inside text-gray-600">
+                <li>光场显示生成：利用3D AIGC技术生成光场显示内容。</li>
+                <li>实时三维重建：快速捕捉并精准重建动态场景的技术研究。</li>
+                <li>光场数据压缩与传输：优化三维光场在有限带宽下的高质量传输。</li>
+                <li>端云协作渲染：探讨低算力设备与云端的协同工作方式。</li>
+                <li>3D数字人建模：创建逼真的3D数字人模型，支持多模态输入智能驱动。</li>
+                <li>交互式系统开发：开发适应复杂交互场景的系统，并进行实际应用验证。</li>
+            </ul>
+        </div>
+
+        <div class="mb-6 animate-slide-in" style="animation-delay: 0.6s;">
+            <h3 class="text-2xl font-semibold mb-4 text-gray-700">学生培养</h3>
+            <ul class="list-disc list-inside text-gray-600">
+                <li>丰厚的学生补助。</li>
+                <li>弹性出勤，结果导向，无需打卡。</li>
+                <li>服务器资源充足：10卡3090 24G服务器(训练机)、8卡P40 24G服务器(测试机)，非大组机器， 小组内自用。校内集群8卡A800 (80G) 大量使用额度。
+                </li>
+                <li>研究生二年级暑期后可实习，提供丰富的就业机会。</li>
+                <li>鼓励参加高水平学术会议，拓宽学术视野。</li>
+            </ul>
+        </div>
+
+        <div class="mb-6 animate-slide-in" style="animation-delay: 0.9s;">
+            <h3 class="text-2xl font-semibold mb-4 text-gray-700">招生要求</h3>
+            <ul class="list-disc list-inside text-gray-600">
+                <li>自我驱动，热爱3D动画和三维显示技术。</li>
+                <li>扎实的数学和编程基础，熟悉Python和C++。</li>
+                <li>良好的英语读写能力。</li>
+                <li>诚实守信，勤奋踏实，具备团队合作精神。</li>
+            </ul>
+        </div>
+
+        <p class="text-lg text-gray-600 mb-4 animate-slide-in" style="animation-delay: 1.2s;">
+            如果您对我们的研究方向感兴趣，请将个人简历（包括本科成绩单和排名）发送至：
+        </p>
+        <p class="text-lg font-semibold text-gray-800 animate-slide-in" style="animation-delay: 1.5s;">
+            邮箱：ypxiong@bupt.edu.cn
+        </p>
+        <p class="text-lg text-gray-600 mb-4 animate-slide-in" style="animation-delay: 1.8s;">
+            请在邮件主题中注明：“姓名-本科学校-保研申请”。若有疑问可联系组内学长（微信：Nobita_1028）了解实验室详情。
+        </p>
+        <p class="text-lg text-gray-600 mb-4 animate-slide-in" style="animation-delay: 2.1s;">
+            我们实验室位于科研楼404和410，欢迎现场参观我们的3D显示屏幕。
+        </p>
+        <p class="text-lg font-semibold text-gray-800 mb-4 animate-slide-in" style="animation-delay: 2.4s;">
+            欢迎优秀本科生加入我们的活力研究团队！
+        </p>
+    </section>
+
+</main>
+
+<footer class="bg-white shadow-lg mt-8 py-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
+        © 2023 LIVIN实验室 北京邮电大学. 保留所有权利.
+    </div>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('main > section');
+
+        function updateActiveLink() {
+            let currentSection = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 60) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('bg-yellow-400', 'text-gray-900');
+                link.classList.add('text-gray-600');
+                if (link.getAttribute('href').slice(1) === currentSection) {
+                    link.classList.add('bg-yellow-400', 'text-gray-900');
+                    link.classList.remove('text-gray-600');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveLink);
+        updateActiveLink();
+
+        const animatedElements = document.querySelectorAll('.animate-fade-in, .animate-slide-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        animatedElements.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(50px)';
+            el.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+            observer.observe(el);
+        });
+    });
+</script>
+</body>
+</html>
